@@ -1,0 +1,15 @@
+client_tabs:
+    archiware_p5_jobs:
+        view: archiware_p5_jobs_tab
+        i18n: archiware_p5_jobs.title
+listings:
+    archiware_p5_jobs:
+        view: archiware_p5_jobs_listing
+        i18n: archiware_p5_jobs.listing.title
+reports:
+    archiware_p5_jobs:
+        view: archiware_p5_jobs_report
+        i18n: archiware_p5_jobs.report.title
+widgets:
+    archiware_p5_jobs_job_number:
+        view: archiware_p5_jobs_job_number_widget

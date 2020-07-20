@@ -1,0 +1,15 @@
+{
+    "column": {
+        "job_number": "Job Number"
+    },
+    "listing": {
+        "title": "Archiware P5 Jobs"
+    },
+    "report": {
+        "title": "Archiware P5 Jobs"
+    },
+    "title": "Archiware P5 Jobs",
+    "widget": {
+        "job_number_title": "Job Number"
+    }
+}

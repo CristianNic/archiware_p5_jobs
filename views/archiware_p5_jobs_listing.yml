@@ -1,0 +1,10 @@
+i18n_title: archiware_p5_jobs.listing.title
+table:
+    -   column: machine.computer_name
+        i18n_header: listing.computername
+        formatter: clientDetail
+        tab_link: archiware_p5_jobs
+    -   column: reportdata.serial_number
+        i18n_header: serial
+    -   column: archiware_p5_jobs.job_number
+        i18n_header: archiware_p5_jobs.column.job_number
