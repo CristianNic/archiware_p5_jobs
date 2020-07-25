@@ -8,3 +8,4 @@ table:
         i18n_header: serial
     -   column: archiware_p5_jobs.job_number
         i18n_header: archiware_p5_jobs.column.job_number
+        formatter: formatNewLines
