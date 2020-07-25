@@ -8,10 +8,12 @@ import json
 
 def two_dicts():
     out = []
-    job1 = {"job_number" : "12685"}
-    job2 = {"job_number" : "12267"}
+    job1 = {"job_number" : "12685 \n Success"}
+    job2 = {"job_number" : "12267 \n Pass"}
+    job3 = {"job_number" : "12235" + '\n' + "Success"}
     out.append(job1)
     out.append(job2)
+    out.append(job3)
     return out
 
 def main():
