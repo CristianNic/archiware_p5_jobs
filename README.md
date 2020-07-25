@@ -13,6 +13,6 @@ https://www.archiware.com/
 Table Schema
 -----
 
-* job_number      - Integer      - Currently running Job Number
+* job_number      - Integer      - Job number of each currently running job 
 
 * more coming

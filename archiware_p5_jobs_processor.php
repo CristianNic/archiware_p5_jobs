@@ -13,8 +13,12 @@ class Archiware_p5_jobs_processor extends Processor
         // Process json into object thingy
         $data = json_decode($json, true);
         $data['serial_number'] = $this->serial_number;
-        Archiware_p5_jobs_model::updateOrCreate(
-			       ['serial_number' => $this->serial_number], $data);
-        return $this;
+        Archiware_p5_jobs_model::where('serial_number', $this->serial_number)->delete();
+        foreach($data as $key => $job ) {
+            $data[$key]['serial_number'] = $this->serial_number;
+        }
+        Archiware_p5_jobs_model::insertChunked($data);
     }
 }
+
+
