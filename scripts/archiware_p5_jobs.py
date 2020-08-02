@@ -49,6 +49,15 @@ def nsdchat_job_check():
                       # >> Sync Plan: Sync Plan 2
                       # >>      <jobreport>
                       # >> ...
+                      
+    values = ['12267', '12421']
+    
+    keys = ['job_number', 'job_number']
+
+    dictionary = collections.OrderedDict(zip(keys,values))
+
+    return(dictionary)                      
+
 
 def two_dicts():
     out = []
