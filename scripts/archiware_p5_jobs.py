@@ -11,7 +11,8 @@ def find_between(s, start, end):
   
 def nsdchat_job_check():
 
-    cmd = ['sh nsdchat_job_simulator.sh Job 2_warnings'] # cmd requires full .sh file path name
+    ### Retrieve all jobs with warnings
+    cmd = ['/users/cristian/dev/munki/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job warning']
     out = []
     proc = subprocess.Popen(cmd, text=True, shell=True,
                         stdin=subprocess.PIPE,
@@ -19,57 +20,80 @@ def nsdchat_job_check():
                         stderr=subprocess.PIPE)
     output, err = proc.communicate()
     out.append(output)
-    out = output.split(' ')
+    out = output.split(' ') # >>> ['12267', '12284', '12294', '12438', '12421', '12413']
+    #print(out)
+            
+    def description():
+        for i in out:
+            describe = '/users/cristian/dev/munki/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' describe'
+            proc = subprocess.Popen(describe, text=True, shell=True,
+                                stdin=subprocess.PIPE,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+            output, err = proc.communicate()
+            return(output)                    
     
-    print(out)
+    def start_date_end_date():
+        for i in out:
+            between =[]
+            describe = '/users/cristian/dev/munki/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' xmlticket'
+            proc = subprocess.Popen(describe, text=True, shell=True,
+                                stdin=subprocess.PIPE,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+            output, err = proc.communicate()
+            start_date = find_between(output, '<startdate>', '</startdate>')
+            end_date = find_between(output, '<endtime>', '</endtime>')
+            between.append(start_date)
+            between.append(end_date)
+            between = ' - '.join(between) 
+            return(between)
+    
+    def result():
+        for i in out:
+            result = []
+            describe = '/users/cristian/dev/munki/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' xmlticket'
+            proc = subprocess.Popen(describe, text=True, shell=True,
+                                stdin=subprocess.PIPE,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+            output, err = proc.communicate()
+            result = find_between(output, '<result>', '</result>')
+            return(result)                                   
 
-    # create new cmds list from output. for each add path + descibe or xmlticket
-    cmds = []
-
+    def report():
+        for i in out:
+            report = []
+            describe = '/users/cristian/dev/munki/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' xmlticket'
+            proc = subprocess.Popen(describe, text=True, shell=True,
+                                stdin=subprocess.PIPE,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+            output, err = proc.communicate()
+            report = find_between(output, '<report>', '</report>')
+            return(report)   
+                                                              
+    dict = []
     for i in out:
-        describe = 'sh nsdchat_job_simulator.sh Job ' + i + ' describe'  # >> 'sh nsdchat_job_simulator.sh Job 12267 descride'
-        xmlpath  = 'sh nsdchat_job_simulator.sh Job ' + i + ' xmlticket'  # >> 'sh nsdchat_job_simulator.sh Job 12267 xmlpath'
-        cmds.append(describe)
-        cmds.append(xmlpath)
-    print(cmds) # >> ['sh nsdchat_job_simulator.sh Job 12267 descride', 'sh nsdchat_job_simulator.sh Job 12267 xmlpath',
-                #    'sh nsdchat_job_simulator.sh Job 12421 descride', 'sh nsdchat_job_simulator.sh Job 12421 xmlpath']
-
-    # run the new list of commands
-    for cmd in cmds:
-        proc = subprocess.Popen(cmd, text=True, shell=True,
-                            stdin=subprocess.PIPE,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE)
-        output, err = proc.communicate()
-        print(output) # >> Sync Plan: Sync Plan 1
-                      # >> <jobreport>
-                      # >>      <description>Sync Plan: Sync Plan 1</description>
-                      # >>      <startdate>15.05.2016</startdate>
-                      # >>      <enddate>15.05.2016</enddate>
-                      # >>      <starttime>00:00:00</starttime>
-                      # >> ...
-                      # >> Sync Plan: Sync Plan 2
-                      # >>      <jobreport>
-                      # >> ...
-                      
-    values = ['12267', '12421']
-    
-    keys = ['job_number', 'job_number']
-
-    dictionary = collections.OrderedDict(zip(keys,values))
-
-    return(dictionary)                      
+        info = {
+            'job_number':           i,
+            #'description':          'desctiption.find_between(s, start, end)',
+            'description':          description(),  # function for obtaining description
+                                                          # def obtain_description
+                                                          #     for i in out:           # for each job number run it though the describe command
+                                                          #         return(description) # don't append to anything, just return it
+                                                          # place this function seperate? bellow. 
+            'start_date_end_date':  start_date_end_date(),
+            'result':               result(),
+            'status':               report(),
+            }
+        dict.append(info)
+        #print(dict)
+        #return(dict)
+    return(dict)
 
 
-def three_dicts():
-    out = []
-    job1 = {"job_number" : "12685 \n Success"}
-    job2 = {"job_number" : "12267 \n Pass"}
-    job3 = {"job_number" : "12235" + '\n' + "Success"}
-    out.append(job1)
-    out.append(job2)
-    out.append(job3)
-    return out
+
 
 def main():
 
@@ -80,8 +104,7 @@ def main():
         exit(0)
 
     # Get information about Archiware P5 Jobs
-    result = three_dicts()
-    #result = nsdchat_job_check()
+    result = nsdchat_job_check()
 
     cachedir = '%s/cache' % os.path.dirname(os.path.realpath(__file__))
     with open(os.path.join(cachedir, 'archiware_p5_jobs.json'), 'w') as fp:
