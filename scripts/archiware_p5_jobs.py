@@ -6,20 +6,22 @@ import subprocess
 import collections
 import json
 
+def find_between(s, start, end):
+  return (s.split(start))[1].split(end)[0]
+  
 def nsdchat_job_check():
 
     cmd = ['sh nsdchat_job_simulator.sh Job 2_warnings'] # cmd requires full .sh file path name
-
+    out = []
     proc = subprocess.Popen(cmd, text=True, shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE)
     output, err = proc.communicate()
-    # print(output) # >> 12267 12421
-
-    # convert output string into a list
+    out.append(output)
     out = output.split(' ')
-    # print(out) # >> ['12267', '12421']
+    
+    print(out)
 
     # create new cmds list from output. for each add path + descibe or xmlticket
     cmds = []
@@ -59,7 +61,7 @@ def nsdchat_job_check():
     return(dictionary)                      
 
 
-def two_dicts():
+def three_dicts():
     out = []
     job1 = {"job_number" : "12685 \n Success"}
     job2 = {"job_number" : "12267 \n Pass"}
@@ -78,8 +80,8 @@ def main():
         exit(0)
 
     # Get information about Archiware P5 Jobs
-    # result = two_dicts()
-    result = nsdchat_job_check()
+    result = three_dicts()
+    #result = nsdchat_job_check()
 
     cachedir = '%s/cache' % os.path.dirname(os.path.realpath(__file__))
     with open(os.path.join(cachedir, 'archiware_p5_jobs.json'), 'w') as fp:
