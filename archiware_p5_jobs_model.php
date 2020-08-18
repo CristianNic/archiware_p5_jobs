@@ -10,7 +10,11 @@ class Archiware_p5_jobs_model extends Eloquent
 
     protected $fillable = [
       'serial_number',
-      'job_number',
+      'job_id',
+      'description',
+      'start_date_end_date',
+      'result',
+      'status',
 
     ];
 }
