@@ -21,10 +21,14 @@ class Archiware_p5_jobs_controller extends Module_controller
      **/
     public function get_data($serial_number = '')
     {
+				$string = (string) conf('job_id');
+				
         jsonView(
             Archiware_p5_jobs_model::select('archiware_p5_jobs.*')
             ->whereSerialNumber($serial_number)
+						->set(REPLACE(count, ',', CHAR(10)))
             ->filter()
+						->replace($string, ',', CHAR(10))
             ->limit(1)
             ->first()
             ->toArray()
@@ -33,11 +37,13 @@ class Archiware_p5_jobs_controller extends Module_controller
 
     public function get_list($column = '')
     {
+				$string = (string) conf('job_id');
+				
         jsonView(
-          //  Archiware_p5_jobs_model::select($column . ' AS label')
 						Archiware_p5_jobs_model::select("archiware_p5_jobs.$column AS label")
                 ->selectRaw('count(*) AS count')
                 ->filter()
+								->replace($string, ',', CHAR(10))
                 ->groupBy($column)
                 ->orderBy('count', 'desc')
                 ->get()
