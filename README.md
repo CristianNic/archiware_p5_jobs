@@ -1,7 +1,9 @@
 Archiware P5 Jobs Module
 ========================
 
-Reports Archiware P5 client currently running Job data to MunkiReport.
+Reports Archiware P5 client running Jobs data to MunkiReport.
+
+![](https://github.com/CristianNic/archiware_p5_jobs/blob/master/listing.jpg)
 
 Notes
 -----
