@@ -1,2 +1,6 @@
 row1:
-    archiware_p5_jobs_job_number: {  }
+    archiware_p5_jobs_job_id: {  }
+    archiware_p5_jobs_description: {  }
+    archiware_p5_jobs_start_date_end_date: {  }
+    archiware_p5_jobs_result: {  }
+    archiware_p5_jobs_status: {  }
