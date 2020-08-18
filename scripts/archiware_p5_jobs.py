@@ -10,7 +10,7 @@ def find_between(str, start, end):
   return (str.split(start))[1].split(end)[0]
   
 def description(i):
-    describe = '/users/cristian/dev/munki/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' describe'
+    describe = '/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' describe'
     proc = subprocess.Popen(describe, text=True, shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
@@ -20,14 +20,14 @@ def description(i):
     
 def start_date_end_date(i):
     between = []
-    describe = '/users/cristian/dev/munki/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' xmlticket'
+    describe = '/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' xmlticket'
     proc = subprocess.Popen(describe, text=True, shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE)
     output, err = proc.communicate()
     start_date = find_between(output, '<startdate>', '</startdate>')
-    end_date = find_between(output, '<endtime>', '</endtime>')
+    end_date = find_between(output, '<enddate>', '</enddate>')
     between.append(start_date)
     between.append(end_date)
     between = ' - '.join(between) 
@@ -35,18 +35,18 @@ def start_date_end_date(i):
     
 def result(i):
     result = []
-    describe = '/users/cristian/dev/munki/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' xmlticket'
+    describe = '/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' xmlticket'
     proc = subprocess.Popen(describe, text=True, shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE)
     output, err = proc.communicate()
-    result = find_between(output, '<result>', '</result>')
+    result = find_between(output, '<result>', '</result>').capitalize()
     return(result)                                   
 
 def report(i):
     report = []
-    describe = '/users/cristian/dev/munki/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' xmlticket'
+    describe = '/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' xmlticket'
     proc = subprocess.Popen(describe, text=True, shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
@@ -58,7 +58,7 @@ def report(i):
 def nsdchat_job_check():
 
     # Retrieve all jobs with warnings
-    cmd = ['/users/cristian/dev/munki/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job warning']
+    cmd = ['/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ']
     jobs = []
     proc = subprocess.Popen(cmd, text=True, shell=True,
                         stdin=subprocess.PIPE,
@@ -71,11 +71,11 @@ def nsdchat_job_check():
     # Check details for each job filling in a dictionary for each                                                          
     list = []
     for i in jobs:
-        dict = {'job_id': int(i), 
-                'desctription': description(i),
+        dict = {'job_id': int(i),  
+                'description': description(i),
                 'start_date_end_date': start_date_end_date(i),
                 'result': result(i),
-                'status': report(i),}
+                'status': report(i)}
         list.append(dict)     
     return(list)
     
