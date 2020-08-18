@@ -1,5 +1,5 @@
 {
-    "name": "cristiannic/archiware_p5_jobs",
-    "description": "Archiware P5 jobs module reports on running jobs for munkireport.",
+    "name": "CristianNic/archiware_p5_jobs",
+    "description": "Module for munkireport.",
     "license": "MIT"
 }
