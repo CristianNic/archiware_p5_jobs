@@ -6,11 +6,13 @@ import os
 import subprocess
 import json
 
+sim_path = '/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh' 
+
 def find_between(str, start, end):
   return (str.split(start))[1].split(end)[0]
-  
+    
 def description(i):
-    describe = '/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' describe'
+    describe = sim_path + ' Job ' + i + ' describe'
     proc = subprocess.Popen(describe, text=True, shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
@@ -20,7 +22,7 @@ def description(i):
     
 def start_date_end_date(i):
     between = []
-    describe = '/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' xmlticket'
+    describe = sim_path + ' Job ' + i + ' xmlticket'
     proc = subprocess.Popen(describe, text=True, shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
@@ -35,7 +37,7 @@ def start_date_end_date(i):
     
 def result(i):
     result = []
-    describe = '/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' xmlticket'
+    describe = sim_path + ' Job ' + i + ' xmlticket'
     proc = subprocess.Popen(describe, text=True, shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
@@ -46,7 +48,7 @@ def result(i):
 
 def report(i):
     report = []
-    describe = '/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ' + i + ' xmlticket'
+    describe = sim_path + ' Job ' + i + ' xmlticket'
     proc = subprocess.Popen(describe, text=True, shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
@@ -58,7 +60,7 @@ def report(i):
 def nsdchat_job_check():
 
     # Retrieve all jobs with warnings
-    cmd = ['/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs/nsdchat_job_simulator.sh Job ']
+    cmd = sim_path + ' Job ' + ' warning'
     jobs = []
     proc = subprocess.Popen(cmd, text=True, shell=True,
                         stdin=subprocess.PIPE,

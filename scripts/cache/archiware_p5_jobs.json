@@ -1,30 +1,30 @@
 [
     {
         "job_id": 12267,
-        "desctription": "Sync Plan: Sync Plan 1",
-        "start_date_end_date": "15.05.2016 - 04:24:33",
-        "result": "exception",
+        "description": "Sync Plan: Sync Plan 1",
+        "start_date_end_date": "15.05.2016 - 15.05.2016",
+        "result": "Exception",
         "status": "Syncing '/Volumes/Xsan/Production/Server' to '/Volumes/RAID1/P5-Sync/' ...\nFinished: copied 1747 files/folders, 171.63 MB.\n\nWARNING: check file access log!"
     },
     {
         "job_id": 12438,
-        "desctription": "Sync Plan: Sync Plan 1",
-        "start_date_end_date": "19.05.2016 - 16:00:00",
-        "result": "failure",
+        "description": "Sync Plan: Sync Plan 1",
+        "start_date_end_date": "19.05.2016 - 19.05.2016",
+        "result": "Failure",
         "status": ""
     },
     {
         "job_id": 12421,
-        "desctription": "Sync Plan: Sync Plan 2",
-        "start_date_end_date": "19.05.2016 - 06:08:27",
-        "result": "exception",
+        "description": "Sync Plan: Sync Plan 2",
+        "start_date_end_date": "19.05.2016 - 19.05.2016",
+        "result": "Exception",
         "status": "Syncing '/Volumes/Xsan/Production/-Server' to '/Volumes/LaCieRAID1/P5-Sync/' ...\n  Finished: copied 18150 files/folders, 326.43 MB.\n\n  WARNING: check file access log!"
     },
     {
         "job_id": 12413,
-        "desctription": "Sync Plan: Sync Plan 1",
-        "start_date_end_date": "19.05.2016 - 02:57:24",
-        "result": "exception",
+        "description": "Sync Plan: Sync Plan 1",
+        "start_date_end_date": "19.05.2016 - 19.05.2016",
+        "result": "Exception",
         "status": "Syncing '/Volumes/Xsan/Production/-Server' to '/Volumes/LaCieRAID1/P5-Sync/' ...\n  Finished: copied 31686 files/folders, 384.06 MB.\n\n  WARNING: check file access log!"
     }
 ]
