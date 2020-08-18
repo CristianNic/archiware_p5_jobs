@@ -1,6 +1,10 @@
 {
     "column": {
-        "job_number": "Job Number"
+        "job_id": "Job ID",
+        "description": "Description",
+        "start_date_end_date": "Start Date - End Date",
+        "result": "Result",
+        "status": "Status"
     },
     "listing": {
         "title": "Archiware P5 Jobs"
@@ -10,6 +14,10 @@
     },
     "title": "Archiware P5 Jobs",
     "widget": {
-        "job_number_title": "Job Number"
+        "job_id_title": "Job ID",
+        "description_title": "Description",
+        "start_date_end_date_title": "Start Date - End Date",
+        "result_title": "Result",
+        "status_title": "Status"
     }
 }
