@@ -1,4 +1,5 @@
 i18n_title: archiware_p5_jobs.listing.title
+js_link: module/archiware_p5_jobs/js/archiware_p5_jobs
 table:
     -   column: machine.computer_name
         i18n_header: listing.computername
@@ -6,6 +7,19 @@ table:
         tab_link: archiware_p5_jobs
     -   column: reportdata.serial_number
         i18n_header: serial
-    -   column: archiware_p5_jobs.job_number
-        i18n_header: archiware_p5_jobs.column.job_number
+    -   column: archiware_p5_jobs.job_id
+        i18n_header: archiware_p5_jobs.column.job_id
+    -   column: archiware_p5_jobs.description
+        i18n_header: archiware_p5_jobs.column.description
+    -   column: archiware_p5_jobs.start_date_end_date
+        i18n_header: archiware_p5_jobs.column.start_date_end_date
+    -   column: archiware_p5_jobs.result
+        i18n_header: archiware_p5_jobs.column.result
+    -   column: archiware_p5_jobs.status
+        i18n_header: archiware_p5_jobs.column.status
         formatter: formatArchiware_p5NewLines
+
+
+
+
+
