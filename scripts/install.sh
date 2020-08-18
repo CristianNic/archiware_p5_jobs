@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# archiware_p5_jobs controller
+# archiware_jobs controller
 CTL="${BASEURL}index.php?/module/archiware_p5_jobs/"
 
 # Get the scripts in the proper directories
