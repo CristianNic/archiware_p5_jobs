@@ -11,5 +11,13 @@ reports:
         view: archiware_p5_jobs_report
         i18n: archiware_p5_jobs.report.title
 widgets:
-    archiware_p5_jobs_job_number:
-        view: archiware_p5_jobs_job_number_widget
+    archiware_p5_jobs_job_id:
+        view: archiware_p5_jobs_job_id_widget
+    archiware_p5_jobs_description:
+        view: archiware_p5_jobs_description_widget
+    archiware_p5_jobs_start_date_end_date:
+        view: archiware_p5_jobs_start_date_end_date_widget
+    archiware_p5_jobs_result:
+        view: archiware_p5_jobs_result_widget
+    archiware_p5_jobs_status:
+        view: archiware_p5_jobs_status_widget

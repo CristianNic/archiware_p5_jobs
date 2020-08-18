@@ -1,0 +1,8 @@
+type: scrollbox
+widget_id: archiware_p5_jobs-start_date_end_date-scrollbox-widget
+api_url: /module/archiware_p5_jobs/get_list/start_date_end_date
+i18n_title: archiware_p5_jobs.widget.start_date_end_date_title
+icon: fa-laptop
+listing_link: /show/listing/archiware_p5_jobs/archiware_p5_jobs
+search_key: label
+badge: count

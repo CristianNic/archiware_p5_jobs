@@ -1,0 +1,8 @@
+type: scrollbox
+widget_id: archiware_p5_jobs-job_id-scrollbox-widget
+api_url: /module/archiware_p5_jobs/get_list/job_id
+i18n_title: archiware_p5_jobs.widget.job_id_title
+icon: fa-laptop
+listing_link: /show/listing/archiware_p5_jobs/archiware_p5_jobs
+search_key: label
+badge: count
