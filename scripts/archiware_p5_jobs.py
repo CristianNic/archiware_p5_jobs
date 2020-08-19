@@ -59,7 +59,7 @@ def nsdchat_job_check():
     jobs.append(output)
     jobs = output.split(' ')
     
-    # Check details for each job filling in a dictionary for each                                                          
+    # Check details for each job and fill in a dictionary for each                                                          
     list = []
     for i in jobs:
         dict = {'job_id': int(i),  
