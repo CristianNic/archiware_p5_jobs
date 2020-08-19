@@ -6,7 +6,7 @@ import os
 import subprocess
 import json
 
-nsdchat_path = '/usr/local/aw/bin/nsdchat'
+nsdchat_path = '/usr/local/aw/bin/nsdchat -c'
 # nsdchat_path = '/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs_scripts/nsdchat_job_simulator.sh' 
 
 def find_between(str, start, end):
