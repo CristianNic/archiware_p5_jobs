@@ -6,13 +6,13 @@ import os
 import subprocess
 import json
 
-sim_path = '/usr/local/aw/bin/nsdchat' 
+nsdchat_path = '/usr/local/aw/bin/nsdchat' 
 
 def find_between(str, start, end):
   return (str.split(start))[1].split(end)[0]
     
 def description(i):
-    describe = sim_path + ' Job ' + i + ' describe'
+    describe = nsdchat_path + ' Job ' + i + ' describe'
     proc = subprocess.Popen(describe, text=True, shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
@@ -22,7 +22,7 @@ def description(i):
     
 def start_date_end_date(i):
     between = []
-    describe = sim_path + ' Job ' + i + ' xmlticket'
+    describe = nsdchat_path + ' Job ' + i + ' xmlticket'
     proc = subprocess.Popen(describe, text=True, shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
@@ -37,7 +37,7 @@ def start_date_end_date(i):
     
 def result(i):
     result = []
-    describe = sim_path + ' Job ' + i + ' xmlticket'
+    describe = nsdchat_path + ' Job ' + i + ' xmlticket'
     proc = subprocess.Popen(describe, text=True, shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
@@ -48,7 +48,7 @@ def result(i):
 
 def report(i):
     report = []
-    describe = sim_path + ' Job ' + i + ' xmlticket'
+    describe = nsdchat_path + ' Job ' + i + ' xmlticket'
     proc = subprocess.Popen(describe, text=True, shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
@@ -60,7 +60,7 @@ def report(i):
 def nsdchat_job_check():
 
     # Retrieve all jobs with warnings
-    cmd = sim_path + ' Job ' + ' warning'
+    cmd = nsdchat_path + ' Job ' + ' warning'
     jobs = []
     proc = subprocess.Popen(cmd, text=True, shell=True,
                         stdin=subprocess.PIPE,
