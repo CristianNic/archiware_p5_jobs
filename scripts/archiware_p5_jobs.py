@@ -6,28 +6,29 @@ import os
 import subprocess
 import json
 
-nsdchat_path = '/usr/local/aw/bin/nsdchat' 
+#nsdchat_path = '/usr/local/aw/bin/nsdchat'
+nsdchat_path = '/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs_scripts/nsdchat_job_simulator.sh' 
 
 def find_between(str, start, end):
   return (str.split(start))[1].split(end)[0]
-    
-def description(i):
-    describe = nsdchat_path + ' Job ' + i + ' describe'
-    proc = subprocess.Popen(describe, text=True, shell=True,
+
+def subprocess_output(cmd):
+    proc = subprocess.Popen(cmd, text=True, shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE)
     output, err = proc.communicate()
+    return(output)   
+        
+def description(i):
+    cmd = nsdchat_path + ' Job ' + i + ' describe'
+    output = subprocess_output(cmd)
     return(output)
     
 def start_date_end_date(i):
     between = []
-    describe = nsdchat_path + ' Job ' + i + ' xmlticket'
-    proc = subprocess.Popen(describe, text=True, shell=True,
-                        stdin=subprocess.PIPE,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.PIPE)
-    output, err = proc.communicate()
+    cmd = nsdchat_path + ' Job ' + i + ' xmlticket'
+    output = subprocess_output(cmd)
     start_date = find_between(output, '<startdate>', '</startdate>')
     end_date = find_between(output, '<enddate>', '</enddate>')
     between.append(start_date)
@@ -37,36 +38,24 @@ def start_date_end_date(i):
     
 def result(i):
     result = []
-    describe = nsdchat_path + ' Job ' + i + ' xmlticket'
-    proc = subprocess.Popen(describe, text=True, shell=True,
-                        stdin=subprocess.PIPE,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.PIPE)
-    output, err = proc.communicate()
+    cmd = nsdchat_path + ' Job ' + i + ' xmlticket'
+    output = subprocess_output(cmd)
     result = find_between(output, '<result>', '</result>').capitalize()
     return(result)                                   
 
 def report(i):
     report = []
-    describe = nsdchat_path + ' Job ' + i + ' xmlticket'
-    proc = subprocess.Popen(describe, text=True, shell=True,
-                        stdin=subprocess.PIPE,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.PIPE)
-    output, err = proc.communicate()
+    cmd = nsdchat_path + ' Job ' + i + ' xmlticket'
+    output = subprocess_output(cmd)
     report = find_between(output, '<report>', '</report>')
     return(report)   
  
 def nsdchat_job_check():
 
     # Retrieve all jobs with warnings
-    cmd = nsdchat_path + ' Job ' + ' warning'
     jobs = []
-    proc = subprocess.Popen(cmd, text=True, shell=True,
-                        stdin=subprocess.PIPE,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.PIPE)
-    output, err = proc.communicate()
+    cmd = nsdchat_path + ' Job ' + ' warning'
+    output = subprocess_output(cmd)
     jobs.append(output)
     jobs = output.split(' ')
     
@@ -98,3 +87,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
