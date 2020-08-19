@@ -71,8 +71,7 @@ def nsdchat_job_check():
     return(list)
     
 def main():
-
-    """Main"""
+    
     # Check if Archiware P5 Jobs is installed
     if  not os.path.isfile('/usr/local/aw/bin/nsdchat'):
         print ("ERROR: Archiware P5 is not installed")
