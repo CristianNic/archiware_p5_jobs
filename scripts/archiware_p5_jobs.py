@@ -7,7 +7,8 @@ import subprocess
 import json
 
 nsdchat_path = '/usr/local/aw/bin/nsdchat'
-# nsdchat_path = '/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs_scripts/nsdchat_job_simulator.sh' 
+# nsdchat_path = '/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs_scripts/nsdchat_job_simulator.sh'
+# nsdchat_path = '/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs_scripts/nsdchat_job_simulator_empty.sh'
 
 def find_between(str, start, end):
   return (str.split(start))[1].split(end)[0]
@@ -20,14 +21,14 @@ def subprocess_output(cmd):
     output, err = proc.communicate()
     return(output)   
         
-def description(i):
+def description(i): 
     cmd = nsdchat_path + ' -c ' + ' Job ' + i + ' describe'
     output = subprocess_output(cmd)
     return(output)
     
-def start_date_end_date(i):
+def start_date_end_date(i): 
     between = []
-    cmd = nsdchat_path + ' -c ' + ' Job ' + i + ' xmlticket'
+    cmd = nsdchat_path + ' -c ' + ' Job ' + i + ' xmlticket' 
     output = subprocess_output(cmd)
     start_date = find_between(output, '<startdate>', '</startdate>')
     end_date = find_between(output, '<enddate>', '</enddate>')
@@ -36,7 +37,7 @@ def start_date_end_date(i):
     between = ' - '.join(between) 
     return(between)
     
-def result(i):
+def result(i):  
     result = []
     cmd = nsdchat_path + ' -c ' + ' Job ' + i + ' xmlticket'
     output = subprocess_output(cmd)
@@ -49,27 +50,39 @@ def report(i):
     output = subprocess_output(cmd)
     report = find_between(output, '<report>', '</report>')
     return(report)   
- 
+
 def nsdchat_job_check():
 
     # Retrieve all jobs with warnings
     jobs = []
     cmd = nsdchat_path + ' -c' + ' Job' + ' warning'
     output = subprocess_output(cmd)
-    jobs.append(output)
-    jobs = output.split(' ')
     
-    # Check details for each job and fill in a dictionary for each                                                          
-    list = []
-    for i in jobs:
-        dict = {'job_id': int(i),  
-                'description': description(i),
-                'start_date_end_date': start_date_end_date(i),
-                'result': result(i),
-                'status': report(i)}
-        list.append(dict)     
-    return(list)
-    
+    # If there are no jobs with warnings
+    if output == '<empty>':
+        list = []
+        dict = {'job_id': 0,
+                'description': 'none',
+                'start_date_end_date': 'none',
+                'result': 'none',
+                'status': 'none'}
+        list.append(dict) 
+        return(list)
+        
+    # If there are jobs, check details and fill in a dictionary for each
+    else:    
+        jobs.append(output)
+        jobs = output.split(' ')                                                         
+        list = []
+        for i in jobs:
+            dict = {'job_id': int(i),  
+                    'description': description(i),
+                    'start_date_end_date': start_date_end_date(i),
+                    'result': result(i),
+                    'status': report(i)}
+            list.append(dict)     
+        return(list)
+        
 def main():
     
     # Check if Archiware P5 Jobs is installed
@@ -86,4 +99,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
