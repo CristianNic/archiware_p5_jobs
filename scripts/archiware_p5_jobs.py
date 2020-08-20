@@ -6,7 +6,7 @@ import os
 import subprocess
 import json
 
-nsdchat_path = '/usr/local/aw/bin/nsdchat -c'
+nsdchat_path = '/usr/local/aw/bin/nsdchat'
 # nsdchat_path = '/users/cristian/dev/github/cristiannic/archiware_p5_draft/archiware_p5_jobs_scripts/nsdchat_job_simulator.sh' 
 
 def find_between(str, start, end):
@@ -21,13 +21,13 @@ def subprocess_output(cmd):
     return(output)   
         
 def description(i):
-    cmd = nsdchat_path + ' Job ' + i + ' describe'
+    cmd = nsdchat_path + ' -c ' + ' Job ' + i + ' describe'
     output = subprocess_output(cmd)
     return(output)
     
 def start_date_end_date(i):
     between = []
-    cmd = nsdchat_path + ' Job ' + i + ' xmlticket'
+    cmd = nsdchat_path + ' -c ' + ' Job ' + i + ' xmlticket'
     output = subprocess_output(cmd)
     start_date = find_between(output, '<startdate>', '</startdate>')
     end_date = find_between(output, '<enddate>', '</enddate>')
@@ -38,14 +38,14 @@ def start_date_end_date(i):
     
 def result(i):
     result = []
-    cmd = nsdchat_path + ' Job ' + i + ' xmlticket'
+    cmd = nsdchat_path + ' -c ' + ' Job ' + i + ' xmlticket'
     output = subprocess_output(cmd)
     result = find_between(output, '<result>', '</result>').capitalize()
     return(result)                                   
 
 def report(i):
     report = []
-    cmd = nsdchat_path + ' Job ' + i + ' xmlticket'
+    cmd = nsdchat_path + ' -c ' + ' Job ' + i + ' xmlticket'
     output = subprocess_output(cmd)
     report = find_between(output, '<report>', '</report>')
     return(report)   
@@ -54,7 +54,7 @@ def nsdchat_job_check():
 
     # Retrieve all jobs with warnings
     jobs = []
-    cmd = nsdchat_path + ' Job ' + ' warning'
+    cmd = nsdchat_path + ' -c' + ' Job' + ' warning'
     output = subprocess_output(cmd)
     jobs.append(output)
     jobs = output.split(' ')
