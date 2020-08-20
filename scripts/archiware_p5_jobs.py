@@ -49,7 +49,10 @@ def report(i):
     cmd = nsdchat_path + ' -c ' + ' Job ' + i + ' xmlticket'
     output = subprocess_output(cmd)
     report = find_between(output, '<report>', '</report>')
-    return(report)   
+    if report == '':
+        return('No report')
+    else:
+        return(report)     
 
 def nsdchat_job_check():
 
