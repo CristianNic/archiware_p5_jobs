@@ -62,7 +62,7 @@ def nsdchat_job_check():
     output = subprocess_output(cmd)
     
     # If there are no jobs with warnings
-    if output == '<empty>':
+    if output == '<empty>\n':
         list = []
         dict = {'job_id': 0,
                 'description': 'none',
