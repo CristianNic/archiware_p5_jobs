@@ -4,6 +4,7 @@
 
 import os
 import subprocess
+import collections
 import json
 
 nsdchat_path = '/usr/local/aw/bin/nsdchat'
@@ -20,48 +21,39 @@ def subprocess_output(cmd):
                         stderr=subprocess.PIPE)
     output, err = proc.communicate()
     return(output)   
-        
-def description(i): 
-    cmd = nsdchat_path + ' -c ' + ' Job ' + i + ' describe'
-    output = subprocess_output(cmd)
-    return(output)
+
+def dictionary(i):
+    dict = {}
+    keys = ['job_id', 'description', 'start_date_end_date', 'result', 'status']
+
+    cmd = nsdchat_path + ' -c Job ' + i + ' xmlticket'     
+    output = subprocess_output(cmd)    
     
-def start_date_end_date(i): 
-    between = []
-    cmd = nsdchat_path + ' -c ' + ' Job ' + i + ' xmlticket' 
-    output = subprocess_output(cmd)
+    job_id = int(i)
+    description = find_between(output, '<description>', '</description>')
     start_date = find_between(output, '<startdate>', '</startdate>')
     end_date = find_between(output, '<enddate>', '</enddate>')
-    between.append(start_date)
-    between.append(end_date)
-    between = ' - '.join(between) 
-    return(between)
-    
-def result(i):  
-    result = []
-    cmd = nsdchat_path + ' -c ' + ' Job ' + i + ' xmlticket'
-    output = subprocess_output(cmd)
+    start_date_end_date = start_date + ' - ' + end_date
     result = find_between(output, '<result>', '</result>').capitalize()
-    return(result)                                   
-
-def report(i):
-    report = []
-    cmd = nsdchat_path + ' -c ' + ' Job ' + i + ' xmlticket'
-    output = subprocess_output(cmd)
-    report = find_between(output, '<report>', '</report>')
-    if report == '':
-        return('No report')
+    status = find_between(output, '<report>', '</report>') 
+    if status  == '':
+        status = 'No Report'
     else:
-        return(report)     
-
+        status
+    
+    values = [job_id, description, start_date_end_date, result, status] 
+    
+    dictionary = collections.OrderedDict(zip(keys,values))  
+    
+    return(dictionary)
+        
 def nsdchat_job_check():
-
     # Retrieve all jobs with warnings
     jobs = []
-    cmd = nsdchat_path + ' -c' + ' Job' + ' warning'
+    cmd = nsdchat_path + ' -c Job failed 5'
     output = subprocess_output(cmd)
     
-    # If there are no jobs with warnings
+    # If there are no jobs with warnings output 'none'
     if output == '<empty>\n':
         list = []
         dict = {'job_id': 0,
@@ -72,19 +64,15 @@ def nsdchat_job_check():
         list.append(dict) 
         return(list)
         
-    # If there are jobs, check details and fill in a dictionary for each
+    # If there are jobs check details and fill in a dictionary for each
     else:    
         jobs.append(output)
         jobs = output.split(' ')                                                         
         list = []
         for i in jobs:
-            dict = {'job_id': int(i),  
-                    'description': description(i),
-                    'start_date_end_date': start_date_end_date(i),
-                    'result': result(i),
-                    'status': report(i)}
+            dict = dictionary(i)
             list.append(dict)     
-        return(list)
+        return(list)            
         
 def main():
     
